@@ -18,7 +18,6 @@ socket.on('mensajes', (data) => {
     if (data!= null) {
         let html = '';
         let usUltimoMsg = '';
-        console.log(data.length, Array.isArray(data))
         if (data.length>0 && Array.isArray(data)) {
             usUltimoMsg = data[0]['us'];
         }
@@ -45,7 +44,6 @@ socket.on('mensajes', (data) => {
             html += '</div>';
         })
         $('#msgs').html(html);
-        console.log(`Ultimo: ${usUltimoMsg}- Actual: ${$('#usuario').val()}-`)
         if (usUltimoMsg!=$('#usuario').val()) {
             sonido('nuevo');
         }
@@ -84,12 +82,12 @@ document.querySelector('#myFile').addEventListener('change', event => {
     handleImageUpload(event)
 })
 
-const handleImageUpload = event => {
+const handleImageUpload = async (event) => {
     const files = event.target.files
-    for (let f of files) {
+    for await (let f of files) {
         const formData = new FormData()
         formData.append('myFile', f)
-        fetch('/subir', {
+        await fetch('/subir', {
             method: 'POST',
             body: formData
         })
@@ -97,7 +95,6 @@ const handleImageUpload = event => {
         .then(data => {
             const usuario = document.getElementById('usuario');    
             socket.emit('mensajeFront', {us: usuario.value, msg: `Envío de Archivo: ${data.filename}`, adj: true, nombre: data.filename})
-            console.log(data)
         })
         .catch(error => {
             console.error(error)

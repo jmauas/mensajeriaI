@@ -3,7 +3,7 @@ import http from 'http';
 import formatoFecha from './src/auxiliares.js';
 import Mensajes from './src/mensajes.js';
 import SubirRoutes from "./multer/subirFile.js";
-import DescargaRoutes from "./subidas/descargas.js";
+import DescargaRoutes from "./src/descargas.js";
 
 const app = express();
 import { Server }  from 'socket.io';

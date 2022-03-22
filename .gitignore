@@ -3,6 +3,8 @@
 
 # Ignora la carpeta node_modules
 node_modules
+subidas
+
 
 # Ignora todos los archivos de texto
 #*.txt
