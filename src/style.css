@@ -1,0 +1,67 @@
+.encabezado {
+    width: 100%; /* hacemos que la cabecera ocupe el ancho completo de la página */
+	left: 0; /* Posicionamos la cabecera al lado izquierdo */
+	top: 0; /* Posicionamos la cabecera pegada arriba */
+	position: fixed; /* Hacemos que la cabecera tenga una posición fija */
+    background-color: white;
+    z-index: 100;
+}
+.cuerpo{
+    padding-top: 250px;
+    left: 0; /* Posicionamos la cabecera al lado izquierdo */
+	top: 0; /* Posicionamos la cabecera pegada arriba */
+    z-index: 0;
+}
+
+.card-header {
+    font-size: small;
+    font-weight: regular;
+}
+
+.nombre{
+    font-size: medium;
+    font-weight: bold;
+}
+.btn-primary {
+    font-weight: bold;
+}
+
+
+.input {
+    position: relative;
+    display: inline-block;
+  }
+  
+.input::before {
+    background-color: #5678EF;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: px;
+    content: '📎 Enviar Archivo'; /* texto por defecto */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  
+  .input input[type="file"] {
+    opacity: 0;
+    width: 200px;
+    height: 32px;
+    display: inline-block;
+  }
+
+  .form-check-label {
+      font-weight: bold;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+
+
+
