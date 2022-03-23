@@ -154,4 +154,23 @@ function activarSonido() {
     $('#activar').hide();
 }
 
+const verConectados = () => {
+    socket.emit('verConectadosFront');
+}
+
+socket.on('VerConectadosBack', (data) => {
+    $('#alertType').hide();
+    if (data!= null) {
+        let html = '';
+        data.map( u => {
+            html += `<tr>
+                        <td>${u.us}</td>
+                        <td>${u.fh}</td>
+                    </tr>`
+        })
+        $('#tablaConectados').html(html);
+    }
+    $('#conectados').modal('show');
+});
+
 

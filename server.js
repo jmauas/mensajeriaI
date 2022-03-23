@@ -15,6 +15,7 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 let us = '';
+let conectados = [];
 
 
 const server = http.createServer(app);
@@ -40,7 +41,9 @@ server.listen(PORT, () => console.log(`Servidor Escuchando en http://localhost:$
 
 io.on('connection', (socket) => {
     console.log(`Usuario: ${us} Conectado`);
-    socket.emit('Bienvenida', {msg: `👍 Bienvenido ${us}. Te conectaste con Éxito. 😎 `, us: us});
+    const fh = formatoFecha(new Date()); 
+    conectados.push({id: socket.id, us: us, fh: fh})
+    socket.emit('Bienvenida', {msg: `👍 Bienvenido ${us}. Conectado.😎 `, us: us});
     us = '';
     const claseMsg = new Mensajes('./db/mensajes.json');
     claseMsg.getAll(msgs => {
@@ -48,6 +51,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('disconnect', () => {
+        conectados = conectados.filter((con) => con.id !== socket.id);
         console.log('Usuario Desconectado');
     });
     
@@ -67,6 +71,10 @@ io.on('connection', (socket) => {
                 io.sockets.emit('mensajes', mensajes);
             });            
         })
+    })
+
+    socket.on('verConectadosFront', () =>{
+        socket.emit('VerConectadosBack', conectados);
     })
 
     socket.on('typingFront', (data) =>{
