@@ -1,16 +1,21 @@
 const socket = io();
-let usuario = '';
 socket.on('Bienvenida', (data) => {
-    $('#status').text(data.msg);
+    let usuario = '';
     $('#titulo').text(data.titulo);
     usuario = data.us;
-    if(usuario!='') {
+    if(usuario.trim()=='') {
+        usuario = localStorage.getItem('us');
+        socket.emit('envioUsuario', usuario)
+    }
+    if(usuario.trim()!='') {
+        localStorage.setItem('us', usuario);
         $('#usuario').val(usuario);
         $('#idUsuario').hide();
     } else {
         $('#usuario').val('');
         $('#idUsuario').show();
     }
+    $('#status').text(`👍 Bienvenido ${usuario}. Conectado.😎`);
     $('#alertType').hide();
 });
 
@@ -75,7 +80,8 @@ const regUsuario = () => {
         return;
     } else {
         $('#idUsuario').hide();
-        $('#status').text(`Bienvenido ${usuario.value}`)
+        $('#status').text(`👍 Bienvenido ${$usuario.value}. Conectado.😎`);
+        localStorage.setItem('us', usuario.value);
     }
 }
 
@@ -130,6 +136,7 @@ socket.on('typingBack', (data) => {
     }
 });
 
+soundManager.debugMode = false;
 soundManager.onload = () => {
     soundManager.createSound({ 
        id:'nuevo',
@@ -163,7 +170,7 @@ socket.on('VerConectadosBack', (data) => {
     $('#alertType').hide();
     if (data!= null) {
         let html = '';
-        data.map( u => {
+        data.map(u => {
             html += `<tr>
                         <td>${u.us}</td>
                         <td>${u.fh}</td>

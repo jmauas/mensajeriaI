@@ -78,6 +78,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('envioUsuario', (us) =>{
+        console.log(conectados)
         conectados = conectados.map(con => {
             return (
                 con.id == socket.id
@@ -85,6 +86,7 @@ io.on('connection', (socket) => {
                     : con
             )
         })
+        console.log(conectados)
     })
 
     socket.on('verConectadosFront', () =>{
