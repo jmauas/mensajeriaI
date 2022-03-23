@@ -4,6 +4,7 @@ import formatoFecha from './src/auxiliares.js';
 import Mensajes from './src/mensajes.js';
 import SubirRoutes from "./multer/subirFile.js";
 import DescargaRoutes from "./subidas/descargas.js";
+import config from "./db/config.js";
 
 const app = express();
 import { Server }  from 'socket.io';
@@ -42,8 +43,12 @@ server.listen(PORT, () => console.log(`Servidor Escuchando en http://localhost:$
 io.on('connection', (socket) => {
     console.log(`Usuario: ${us} Conectado`);
     const fh = formatoFecha(new Date()); 
-    conectados.push({id: socket.id, us: us, fh: fh})
-    socket.emit('Bienvenida', {msg: `👍 Bienvenido ${us}. Conectado.😎 `, us: us});
+    conectados.push({id: socket.id, us: us, fh: fh});
+    socket.emit('Bienvenida', {
+        msg: `👍 Bienvenido ${us}. Conectado.😎 `,
+        us: us,
+        titulo: config.titulo
+    });
     us = '';
     const claseMsg = new Mensajes('./db/mensajes.json');
     claseMsg.getAll(msgs => {

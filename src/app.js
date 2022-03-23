@@ -2,6 +2,7 @@ const socket = io();
 let usuario = '';
 socket.on('Bienvenida', (data) => {
     $('#status').text(data.msg);
+    $('#titulo').text(data.titulo);
     usuario = data.us;
     if(usuario!='') {
         $('#usuario').val(usuario);
@@ -172,5 +173,4 @@ socket.on('VerConectadosBack', (data) => {
     }
     $('#conectados').modal('show');
 });
-
 
