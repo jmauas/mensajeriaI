@@ -38,7 +38,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: px;
+    border-radius: 4px;
     content: '📎 Enviar Archivo'; /* texto por defecto */
     position: absolute;
     left: 0;
@@ -49,7 +49,7 @@
   
   .input input[type="file"] {
     opacity: 0;
-    width: 200px;
+    width: 9em;
     height: 32px;
     display: inline-block;
   }
